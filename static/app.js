@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Reflection Controls
   const statsTasksCompleted = document.getElementById('stats-tasks-completed');
   const statsDuration = document.getElementById('stats-duration');
+  const statsScreenSaved = document.getElementById('stats-screen-saved');
   const reflectionQuestionDisplay = document.getElementById('reflection-question-display');
   const fieldNotesTextarea = document.getElementById('field-notes');
   const saveNoteBtn = document.getElementById('save-note-btn');
