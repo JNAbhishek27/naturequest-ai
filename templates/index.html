@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NatureQuest AI — A little less scrolling. A little more exploring.</title>
+  <meta name="description" content="AI-powered outdoor discovery companion for the Hacktoberfest Touch Grass Challenge. Step away from the screen and explore parks, gardens, campuses, and neighborhoods." />
+  
+  <!-- Modern Nature Font & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/static/style.css" />
+  <script defer src="/static/app.js"></script>
+</head>
+<body>
+
+  <!-- Top Navigation / Status Header -->
+  <nav class="navbar" aria-label="Main Navigation">
+    <div class="nav-container">
+      <div class="brand">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+        </svg>
+        <span class="brand-name">NatureQuest <span>AI</span></span>
+      </div>
+      <div class="status-badge-container">
+        <span id="model-status-badge" class="status-badge checking" title="Checking AI status...">
+          <span class="status-dot"></span>
+          <span id="model-status-text">Checking AI engine...</span>
+        </span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section" id="hero-banner">
+    <div class="hero-content">
+      <div class="hero-pill">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"/>
+          <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/>
+          <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"/>
+          <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        Hacktoberfest "Touch Grass" AI Challenge
+      </div>
+      <h1 class="hero-title">A little less scrolling.<br><em>A little more exploring.</em></h1>
+      <p class="hero-subtitle">
+        Break the digital doomscroll. NatureQuest AI uses the open-weight <strong>Gemma</strong> model to generate mindful, actionable outdoor micro-adventures customized for your local park, garden, campus, or street.
+      </p>
+      <div class="hero-actions">
+        <a href="#generator-section" id="cta-start-btn" class="btn btn-primary btn-large">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Create My Mission
+        </a>
+        <a href="#about-philosophy" class="btn btn-secondary btn-large">The Philosophy</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+
+    <!-- Screen 1: Generator Form -->
+    <section id="generator-section" class="app-card">
+      <div class="card-header">
+        <span class="card-step-badge">Step 1</span>
+        <h2 class="card-title">Craft Your Outdoor Mission</h2>
+        <p class="card-subtitle">Choose what fits your immediate surroundings and schedule right now.</p>
+      </div>
+
+      <form id="mission-form" novalidate>
+        <div class="form-grid">
+          
+          <!-- Environment -->
+          <div class="form-group">
+            <label for="environment" class="form-label">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 19l4-4 4 4M12 15V3M3 19h18"/></svg>
+              Environment
+            </label>
+            <div class="select-wrapper">
+              <select id="environment" name="environment" class="form-select" required>
+                <option value="neighborhood" selected>Neighborhood Street / Society</option>
+                <option value="park">Public Park or Green</option>
+                <option value="garden">Home or Community Garden</option>
+                <option value="campus">College or Work Campus</option>
+                <option value="trail">Walking Path / Trail</option>
+              </select>
+            </div>
+            <span class="field-hint">Works universally, whether in Bengaluru, London, or Tokyo.</span>
+          </div>
+
+          <!-- Time Available -->
+          <div class="form-group">
+            <label for="time_minutes" class="form-label">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Available Time
+            </label>
+            <div class="select-wrapper">
+              <select id="time_minutes" name="time_minutes" class="form-select" required>
+                <option value="10">10 Minutes (Quick fresh air break)</option>
+                <option value="15" selected>15 Minutes (Mindful reset)</option>
+                <option value="30">30 Minutes (Deep observation walk)</option>
+              </select>
+            </div>
+            <span class="field-hint">Short, finite duration so you won't feel pressured.</span>
+          </div>
+
+          <!-- Difficulty -->
+          <div class="form-group">
+            <label for="difficulty" class="form-label">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Difficulty
+            </label>
+            <div class="select-wrapper">
+              <select id="difficulty" name="difficulty" class="form-select" required>
+                <option value="easy" selected>Easy — Relaxed, gentle sensory noticing</option>
+                <option value="moderate">Moderate — Active searching & comparing</option>
+                <option value="adventurous">Adventurous — Detective-level micro observation</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Nature Interests Checkboxes -->
+        <div class="form-group full-width">
+          <label class="form-label">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            Interests (Choose any to focus on)
+          </label>
+          <div class="tags-container" id="interests-group">
+            <label class="tag-checkbox">
+              <input type="checkbox" name="interests" value="plants" checked>
+              <span>🌿 Plants & Leaves</span>
+            </label>
+            <label class="tag-checkbox">
+              <input type="checkbox" name="interests" value="birds" checked>
+              <span>🐦 Birds & Calls</span>
+            </label>
+            <label class="tag-checkbox">
+              <input type="checkbox" name="interests" value="insects">
+              <span>🐞 Insects & Pollinators</span>
+            </label>
+            <label class="tag-checkbox">
+              <input type="checkbox" name="interests" value="trees" checked>
+              <span>🌳 Trees & Bark</span>
+            </label>
+            <label class="tag-checkbox">
+              <input type="checkbox" name="interests" value="weather">
+              <span>☁️ Weather & Wind</span>
+            </label>
+            <label class="tag-checkbox">
+              <input type="checkbox" name="interests" value="mindful observation" checked>
+              <span>🧘 Mindful Silence</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Optional Custom Instruction -->
+        <div class="form-group full-width">
+          <label for="instruction" class="form-label">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
+            Special Focus / Notes (Optional)
+          </label>
+          <input type="text" id="instruction" name="instruction" class="form-input" maxlength="200" placeholder="e.g. It's late evening, look for flowering creepers on walls, or after rain scent..." />
+        </div>
+
+        <!-- Submit Button & State -->
+        <div class="form-actions">
+          <button type="submit" id="submit-mission-btn" class="btn btn-primary btn-block">
+            <span class="btn-text">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              Generate Outdoor Mission
+            </span>
+            <span class="btn-loader hidden">
+              <span class="spinner"></span> Generating with Gemma...
+            </span>
+          </button>
+        </div>
+
+        <div id="form-error-alert" class="alert alert-error hidden" role="alert"></div>
+      </form>
+    </section>
+
+    <!-- Screen 2: Mission Briefing (Review before heading out) -->
+    <section id="briefing-section" class="app-card hidden">
+      <div class="briefing-topbar">
+        <button id="back-to-edit-btn" class="btn-text-link">← Adjust Preferences</button>
+        <span id="mission-origin-tag" class="origin-tag">Gemma AI Engine</span>
+      </div>
+
+      <div class="briefing-header">
+        <h2 id="briefing-title" class="mission-headline"></h2>
+        <div class="mission-meta-strip">
+          <span class="meta-item"><span id="briefing-time">15</span> Mins</span>
+          <span class="meta-item-separator">•</span>
+          <span class="meta-item"><span id="briefing-task-count">4</span> Tasks</span>
+          <span class="meta-item-separator">•</span>
+          <span class="meta-item" id="briefing-env-tag">Neighborhood</span>
+        </div>
+        <p id="briefing-description" class="mission-lead"></p>
+      </div>
+
+      <!-- Low-Screen Mode Reminder Box -->
+      <div class="screen-reminder-box">
+        <div class="reminder-icon">📵</div>
+        <div class="reminder-body">
+          <h4 class="reminder-title">Low-Screen Mode Protocol</h4>
+          <p id="briefing-low-screen" class="reminder-text"></p>
+        </div>
+      </div>
+
+      <!-- Task Preview -->
+      <div class="tasks-preview-section">
+        <h3 class="section-subheading">Your Field Tasks</h3>
+        <ol id="briefing-tasks-list" class="briefing-tasks-list"></ol>
+      </div>
+
+      <!-- Tips & Safety Callouts Grid -->
+      <div class="callout-grid">
+        <div class="callout-card observation-card">
+          <h4>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            Observation Tips
+          </h4>
+          <ul id="briefing-tips-list"></ul>
+        </div>
+
+        <div class="callout-card safety-card">
+          <h4>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Outdoor Safety Reminders
+          </h4>
+          <ul id="briefing-safety-list"></ul>
+        </div>
+      </div>
+
+      <!-- Go Outside CTA -->
+      <div class="briefing-cta-area">
+        <button id="heading-outside-btn" class="btn btn-primary btn-large btn-block">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          I'm Heading Outside (Launch Outdoor Mode)
+        </button>
+        <p class="cta-micro-copy">This switches into high-contrast, distraction-free field view.</p>
+      </div>
+    </section>
+
+    <!-- Screen 3: Outdoor Mode (Distraction-Free Field Companion) -->
+    <section id="outdoor-section" class="app-card outdoor-card hidden">
+      <div class="outdoor-topbar">
+        <span class="outdoor-mode-label">🌿 Outdoor Mode Active</span>
+        <button id="exit-outdoor-btn" class="btn-text-link">Exit to Overview</button>
+      </div>
+
+      <div class="outdoor-caution-banner">
+        <span>⚠️ Keep your eyes on your surroundings, steps, and nature. Phone locked between checks.</span>
+      </div>
+
+      <!-- Progress Indicator -->
+      <div class="outdoor-progress-block">
+        <div class="progress-label-row">
+          <span class="progress-label" id="outdoor-progress-text">Task 1 of 4</span>
+          <span class="progress-percent" id="outdoor-progress-percent">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="outdoor-progress-bar" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Active Task Card -->
+      <div class="active-task-container">
+        <div class="task-number-badge" id="active-task-badge">Task 1</div>
+        <h2 class="active-task-text" id="active-task-text">Finding your starting point...</h2>
+
+        <div class="task-action-row">
+          <label class="task-checkbox-btn" id="task-checkbox-label">
+            <input type="checkbox" id="task-completed-checkbox" class="task-real-checkbox" />
+            <span class="checkbox-custom"></span>
+            <span class="checkbox-btn-text" id="checkbox-action-text">Mark this task completed</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Task Navigation Buttons -->
+      <div class="outdoor-nav-row">
+        <button id="prev-task-btn" class="btn btn-secondary" disabled>← Previous Task</button>
+        <button id="next-task-btn" class="btn btn-secondary">Next Task →</button>
+      </div>
+
+      <!-- Finish Button (revealed when ready) -->
+      <div class="outdoor-finish-area">
+        <button id="finish-mission-btn" class="btn btn-primary btn-large btn-block hidden">
+          🌟 Complete Mission & Reflect
+        </button>
+      </div>
+    </section>
+
+    <!-- Screen 4: Mission Debrief & Reflection -->
+    <section id="reflection-section" class="app-card hidden">
+      <div class="completion-celebration">
+        <div class="celebration-badge">🌱</div>
+        <h2 class="card-title">Mission Accomplished!</h2>
+        <p class="card-subtitle">You took time away from pixels to connect with the living world.</p>
+      </div>
+
+      <!-- Stats Summary -->
+      <div class="completion-stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="stats-tasks-completed">4 / 4</div>
+          <div class="stat-label">Tasks Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stats-duration">15 min</div>
+          <div class="stat-label">Outdoor Duration</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stats-screen-saved">~100%</div>
+          <div class="stat-label">Offline Presence</div>
+        </div>
+      </div>
+
+      <!-- Reflection Question & Field Notes -->
+      <div class="reflection-box">
+        <span class="reflection-pill">Reflection Prompt</span>
+        <blockquote id="reflection-question-display" class="reflection-quote"></blockquote>
+
+        <label for="field-notes" class="form-label">
+          Your Field Note (Saved locally in your browser only)
+        </label>
+        <textarea id="field-notes" class="form-textarea" rows="4" placeholder="Jot down the scents, textures, colors, or surprising thoughts you observed outside..."></textarea>
+        
+        <div class="field-notes-actions">
+          <button id="save-note-btn" class="btn btn-secondary">Save Field Note</button>
+          <span id="note-saved-indicator" class="saved-indicator hidden">✓ Saved to browser storage</span>
+        </div>
+        <p class="storage-notice">
+          ℹ️ Your notes and missions stay private on this device. If you clear your browser cookies or storage, local notes may disappear. No personal data or accounts are required.
+        </p>
+      </div>
+
+      <!-- Next Actions -->
+      <div class="reflection-actions">
+        <button id="start-new-mission-btn" class="btn btn-primary btn-large btn-block">
+          Create Another Outdoor Mission
+        </button>
+      </div>
+    </section>
+
+    <!-- About / Touch Grass Philosophy Section -->
+    <section id="about-philosophy" class="philosophy-section">
+      <div class="philosophy-grid">
+        <div class="philosophy-card">
+          <div class="phi-icon">🍃</div>
+          <h3>Touch Grass Theme</h3>
+          <p>Created for the Hacktoberfest Open-Source AI Challenge Week 1. While typical AI pulls humans deeper into screens, NatureQuest AI uses intelligence specifically to propel you outside.</p>
+        </div>
+        <div class="philosophy-card">
+          <div class="phi-icon">💎</div>
+          <h3>Open-Weight Gemma</h3>
+          <p>Powered by Google's open-weights Gemma model family. The code is modular, transparent, and can be swapped for locally hosted Gemma runtimes without changing user experience.</p>
+        </div>
+        <div class="philosophy-card">
+          <div class="phi-icon">🌍</div>
+          <h3>Inclusive & Global</h3>
+          <p>Designed for any terrain: parks, university campuses, or residential streets in India and worldwide. No hiking gear or paid entry required—nature lives everywhere.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="brand">
+          <svg class="brand-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+          <span>NatureQuest AI</span>
+        </div>
+        <p class="footer-tagline">A little less scrolling. A little more exploring.</p>
+      </div>
+      <div class="footer-col footer-links">
+        <a href="#generator-section">Create Mission</a>
+        <a href="#about-philosophy">Philosophy</a>
+        <a href="https://github.com" target="_blank" rel="noopener">GitHub Repository</a>
+        <a href="/api/health" target="_blank">Health Check</a>
+      </div>
+      <div class="footer-col footer-info">
+        <p>Released under the MIT License for Hacktoberfest 2026.</p>
+        <p>No user data or tracking cookies collected.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
